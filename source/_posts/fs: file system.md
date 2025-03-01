@@ -494,7 +494,7 @@ fdisk -l
 nvme list
 
 # list block disk
-lsblk
+lsblk -l
 ```
 
 ### Check Disk Health

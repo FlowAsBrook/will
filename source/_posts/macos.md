@@ -315,7 +315,7 @@ sudo ln -s $HOME/Applications/minio-binaries/mc /usr/local/bin/mc
 - 简繁体切换
   - `ctrol + shift + F`
 
-### ja-netfilter
+## ja-netfilter
 
 > jetbrains activate tool
 
@@ -323,5 +323,11 @@ sudo ln -s $HOME/Applications/minio-binaries/mc /usr/local/bin/mc
 Appearance & Behavior -> System Settings -> Language and Region -> Region
 需要选择 Asia(except china mainland)
 激活脚本依然使用原来的 script/install.sh
+```
+
+# gpu
+
+```shell
+sudo asitop --interval 10
 ```
 

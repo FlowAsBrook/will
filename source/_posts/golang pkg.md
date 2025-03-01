@@ -75,7 +75,6 @@ categories: GO
   }
   ```
 
-  
 
 # cobra
 
@@ -90,4 +89,16 @@ categories: GO
 - Definition: Flags that are only available to the specific command they are defined on.
 
 - Example: If you set a flag on a specific command, it will not be available to its parent or sibling commands.
+
+# klog
+
+> k8s.io/klog/v2
+
+```go
+klog.Info("setting.MountOptions", setting.MountOptions)
+
+klog.Infof("volumeId[%s] using patch:%#v", setting.VolumeId, patch)
+
+klog.ErrorS(err, "dingofs create fs error: %v", err)
+```
 

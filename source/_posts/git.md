@@ -126,17 +126,16 @@ git push origin master
 
 ## commit相关
 
-- 查看每一行是哪次提交最后修改的
+```shell
+# 查看每一行是哪次提交最后修改的
+git blame filename 
 
-  ```shell
-  git blame filename 
-  ```
+# 列出文件的所有修改记录
+git log -p filename
 
-- 列出文件的所有修改记录
-
-  ```shell
-  git log -p filename
-  ```
+# 以单行列出commit信息
+git log --oneline
+```
 
 ### config
 
@@ -211,11 +210,11 @@ git push origin master
 
 **Important Notes**
 
-​	1.	**Avoid amending commits that have already been pushed**
+1. **Avoid amending commits that have already been pushed**
 
 Amending changes the commit’s hash, which can lead to problems if others have already pulled the original commit.
 
-​	2.	**Use in Local Development**
+2. **Use in Local Development**
 
 `git commit --amend` is best used in local branches before pushing changes to a shared repository.
 
@@ -334,6 +333,10 @@ git branch bk-dev HEAD
   ```shell
   git tag <tag_name> <commit_hash>
   git push origin <tag_name>
+  
+  # push remote upstream repo
+  git push upstream <tag_name>
+  # 该命令会自动触发upstream repo的github workflow
   ```
 
 - 根据tag创建分支
@@ -727,7 +730,7 @@ git cherry-pick <commit-5-hash>
 git cherry-pick <commit-6-hash>
 ```
 
-**4. Resolve Any Conflicts**
+**4. Resolve Any Conflicts** (optional)
 
 If there are conflicts during the cherry-pick process:
 

@@ -288,6 +288,7 @@ root  19496  0.0  2.4 4826152 1603360 ?     Sl    2020 503:15 java -jar -Xms1024
 sudo vi /etc/kdump.conf
 
 # Look for the line starting with path and change it to your desired directory
+# default: /var/crash
 path /new/crash/directory
 
 # Restart the kdump service:

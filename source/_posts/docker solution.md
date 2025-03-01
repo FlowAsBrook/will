@@ -33,13 +33,13 @@ categories: docker
 1. Create the `docker` group.
 
    ```shell
-   $ sudo groupadd docker
+   sudo groupadd docker
    ```
 
 2. Add your user to the `docker` group.
 
    ```shell
-   $ sudo usermod -aG docker $USER
+   sudo usermod -aG docker $USER
    ```
 
 3. Log out and log back in so that your group membership is re-evaluated.
@@ -50,14 +50,14 @@ categories: docker
 
    On Linux, you can also run the following command to activate the changes to groups:
 
-   ```
-   $ newgrp docker 
+   ```shell
+   newgrp docker 
    ```
 
 4. Verify that you can run `docker` commands without `sudo`.
 
-   ```
-   $ docker run hello-world
+   ```shell
+   docker run hello-world
    ```
 
 ## migration

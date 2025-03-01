@@ -136,7 +136,12 @@ categories: python
   exit
   ```
 
-  
+
+- 清理环境
+
+  ```shell
+  hatch env prune <envName>
+  ```
 
 
 - 格式化

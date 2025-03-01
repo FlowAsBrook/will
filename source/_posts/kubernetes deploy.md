@@ -115,24 +115,6 @@ Configuring the `systemd` cgroup driver
   # containerd containerd.io 1.7.19 
   ```
 
-#### config crictl(optional containerd cli) 
-
-- Config containerd `vim /etc/crictl.yaml`
-
-```yaml
-runtime-endpoint: unix:///run/containerd/containerd.sock
-image-endpoint: unix:///run/containerd/containerd.sock
-timeout: 2
-debug: true
-pull-image-on-create: false
-```
-
-- verify mirror
-
-```shell
-sudo crictl info
-```
-
 ### CRI-O (optional)
 
 - set repo
@@ -188,6 +170,24 @@ sudo crictl info
   sudo systemctl enable --now cri-docker.socket
   sudo systemctl status cri-docker.socket
   ```
+
+### crictl
+
+- Config containerd `vim /etc/crictl.yaml`
+
+```yaml
+runtime-endpoint: unix:///run/containerd/containerd.sock
+image-endpoint: unix:///run/containerd/containerd.sock
+timeout: 2
+debug: true
+pull-image-on-create: false
+```
+
+- verify mirror
+
+```shell
+sudo crictl info
+```
 
 ## kubeadm deploy cluster
 
@@ -253,5 +253,9 @@ kubectl get nodes
 ```shell
 scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
+
+# or set kubectl default config
+scp root@<control-plane-host>:/etc/kubernetes/admin.conf ~/.kube/config
+kubectl get nodes
 ```
 

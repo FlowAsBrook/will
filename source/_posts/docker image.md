@@ -23,7 +23,7 @@ docker build --no-cache -t your-image-name .
 docker search xxx
 
 # 拉取
-docker pull xxx
+docker pull xxx (--platform=amd64)
 
 # 运行(容器)
 docker run xxx
@@ -86,6 +86,9 @@ OPTIONS说明：
 
   ```shell
   docker run -it $IMAGE_ID bash
+  
+  # override the entrypoint or pass a different command
+  docker run -it --entrypoint /bin/bash $IMAGE_ID
   ```
 
 - 进入运行的容器

@@ -5,16 +5,16 @@ tags: command
 categories: kubectl
 ---
 
-## common
+# common
 
-### version
+##  version
 
 ```shell
 kubectl version
 kubectl api-versions
 ```
 
-### health
+## health
 
 ```shell
 # check kubernetes inner ip 
@@ -30,14 +30,7 @@ kubectl get crd | grep cert-manager
 kubectl get pods -A
 ```
 
-### label
-
-```shell
-# check node label
-kubectl get nodes --show-labels
-```
-
-### namespace
+## namespace
 
 ```bash
 kubectl get namespaces
@@ -46,34 +39,67 @@ kubectl get namespaces
 kubectl delete all --all -n <namespace>
 ```
 
-## pod
+# node
 
-### basic
+## label
+
+```shell
+# show all labels
+kubectl get nodes --show-labels
+
+# add label on node
+kubectl label node <node-name> <label-key>=<label-value>
+
+# remove label from node
+kubectl label node <node-name> <label-key>-
+# kubectl label nodes sd-shangdi-ceph17 dingofs-csi-node-
+```
+
+## taint
+
+```shell
+# check node is taint or not
+kubectl describe node <nodeName> | grep -i taint
+
+# taint node print
+Taints: nodepool=fault:NoSchedule
+
+# normal node print
+Taints: <none>
+```
+
+# All
+
+```shell
+# delete all resource
+kubectl delete all --all -n <namespace>
+```
+
+# pod
+
+## basic
 
 ```shell
 # list namespace's pod
 kubectl get pod -n {namespace}
 
-# force delete pod
-kubectl delete pod {pod_name} --grace-period=0 --force -n {namespace}
-
 # describe
 kubectl describe pod {podName}
 ```
 
-### log
+## log
 
-> ​	•	-c <container-name>: Specify which container to retrieve logs from.
+> -c <container-name>: Specify which container to retrieve logs from.
 >
-> ​	•	-f: Stream the logs in real-time.
+> -f: Stream the logs in real-time.
 >
-> ​	•	--previous: Show logs from the last terminated container.
+> --previous: Show logs from the last terminated container.
 >
-> ​	•	--since=<duration>: Return logs for the last period (e.g., 1h, 30m).
+> --since=<duration>: Return logs for the last period (e.g., 1h, 30m).
 >
-> ​	•	--tail=<lines>: Limit the number of log lines returned.
+> --tail=<lines>: Limit the number of log lines returned.
 >
-> ​	•	--all-containers=true: Get logs from all containers in the pod.
+> --all-containers=true: Get logs from all containers in the pod.
 
 ```shell
 # pod
@@ -83,7 +109,7 @@ kubectl logs -f {podId} -n {namespace}
 kubectl logs <pod-name> -c <container-name> -n <namespace>
 ```
 
-### config
+## config
 
 ```shell
 kubectl get pod <容器id> --kubeconfig=/path/to/configfile -o yaml > env-vq48.yaml
@@ -92,7 +118,7 @@ kubectl get pod <容器id> --kubeconfig=/path/to/configfile -o yaml > env-vq48.y
 kubectl get pod <pod-name> -n <namespace> -o yaml > pod-config.yaml
 ```
 
-### exec
+## exec
 
 without kubeconfig
 
@@ -101,27 +127,51 @@ without kubeconfig
 kubectl exec -it {pod_id} -n {namespace} -c {container_id} -- sh
 ```
 
-### copy
+## copy
 
 ```shell
 kubectl cp 命令空间/容器id:/path/to/source_file ./path/to/local_file
 ```
 
-## daemonsets
+## delete
+
+```shell
+# method 1
+kubectl delete pod {pod_name} --grace-period=0 --force -n {namespace}
+
+# method 2
+kubectl patch pod <pod-name> -n <target-namespace> -p '{"metadata":{"finalizers":null}}' --type=merge
+
+# method 3
+step1 : kubectl edit pod <pod-name> -n <namespace>
+step2 : delete the finalizers array under metadata, save the file, and exit
+```
+
+| **Aspect**      | **`kubectl patch`**                  | **`kubectl edit`**                        |
+| --------------- | ------------------------------------ | ----------------------------------------- |
+| **Interaction** | Non-interactive (scriptable).        | Interactive (manual editing).             |
+| **Precision**   | Targets only the `finalizers` field. | Requires manually deleting `finalizers`.  |
+| **Use Case**    | Automation (e.g., CI/CD pipelines).  | Debugging or ad-hoc fixes.                |
+| **Safety**      | Risk of typos in JSON syntax.        | Risk of accidental edits to other fields. |
+
+# daemonsets
 
 ```shell
 kubectl get daemonsets --all-namespaces
+
+# restart 
+kubectl rollout restart daemonset/dingofs-csi-node -n dingofs
 ```
 
-## storage
+# storage
 
-### CSIDriver
+## CSIDriver
 
 ```shell
 kubectl get csidrivers
 ```
 
-### storageclass
+## storageclass
 
 ```shell
 kubectl get storageclass
@@ -130,13 +180,13 @@ kubectl get storageclass
 kubectl delete storageclass <sc-name>
 ```
 
-### pvc
+## pvc
 
 ```shell
 kubectl get pvc
 ```
 
-### pv
+## pv
 
 ```shell
 # list pv
@@ -150,5 +200,27 @@ kubectl delete pv PV_NAME
 
 # delete multiply pv
 kubectl get pv --no-headers | grep <NAME> | awk '{print $1}' | xargs kubectl delete pv
+```
+
+# RBAC
+
+```shell
+# list role
+kubectl get role -n <namespace>  # -o yaml
+
+# list clusterrole
+kubectl get clusterrole
+
+# list RoleBinding
+kubectl get rolebinding -n <namespace>
+
+# list clusterrolebinding
+kubectl get clusterrolebinding
+
+# Check if the User Can List Pods in Namespace
+kubectl auth can-i list pods --as=<userName> -n <namespace>
+
+# Check If the ServiceAccount Has Permissions to Get DaemonSets
+kubectl auth can-i get daemonsets --as=system:serviceaccount:<namespace>:<serviceAccount> -n <namespace>
 ```
 

@@ -152,8 +152,6 @@ kafka-topics --zookeeper localhost:2181 --alter --topic my-topic --partitions 10
 kafka-topics --zookeeper localhost:2181 --describe --topic my-topic
 ```
 
-
-
 # Restful API
 
 ## AVRO主题相关
@@ -184,7 +182,6 @@ kafka-topics --zookeeper localhost:2181 --describe --topic my-topic
   GET http://<schema-registry-url>:<port>/subjects/<topic-name>-key/versions/latest
   ```
 
-  
 
 # 参数调优
 

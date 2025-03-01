@@ -33,8 +33,6 @@ categories: tmux
 |              |                              |       |
 
 
-
-
 # 命令模式
 
 `ctrl + b` 然后按下`:`
@@ -55,6 +53,19 @@ categories: tmux
 
 ## 窗口(window)
 
+- 快速定位指定编号的窗口
+
+  ```shell
+  # 定位编号小于10的窗口
+  Ctrl + b <index>
+  
+  # 定位编号大于等于10的窗口
+  Ctrl + b
+  ' (single quote)
+  14
+  Enter
+  ```
+
 - 交换窗口位置
 
   ```shell
@@ -64,8 +75,6 @@ categories: tmux
   # 把当前窗口放到指定编号1的位置
   swap-window -t 0
   ```
-
-  
 
 - 新建窗口
 

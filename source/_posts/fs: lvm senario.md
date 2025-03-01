@@ -60,6 +60,9 @@ sudo lvcreate -L 5T -n lv3 vg_nvme1
 sudo lvcreate -L 1T -n lv1 vg_nvme2
 sudo lvcreate -L 1T -n lv2 vg_nvme2
 sudo lvcreate -L 5T -n lv3 vg_nvme2
+
+# use whole vg
+sudo lvcreate -l 100%FREE -n lv vg_xxx
 ```
 
 ## 4. Verify the Setup
@@ -313,13 +316,13 @@ Use -l (lazy unmount) to force unmount if needed.
 
 Before removing the LV, **deactivate it**:
 
-```
+```shell
 sudo lvchange -an /dev/<vg-name>/<lv-name>
 ```
 
 Now try to remove it:
 
-```
+```shell
 sudo dmsetup remove /dev/mapper/<lv-name>
 ```
 

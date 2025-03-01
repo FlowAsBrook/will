@@ -123,6 +123,14 @@ categories: linux
 
 ​	**hard**: The maximum limit a user can set.
 
+| Feature          | /etc/security/limits.conf  | /etc/security/limits.d/*.conf                                |
+| ---------------- | -------------------------- | ------------------------------------------------------------ |
+| **Default File** | Yes                        | No (Custom files in limits.d directory)                      |
+| **Priority**     | Read first                 | Read after limits.conf                                       |
+| **Organization** | All rules in one file      | Modular approach, one file per service or user               |
+| **Example**      | `* soft nofile 65536`      | `dongw soft nofile 65536` (in `/etc/security/limits.d/dongw.conf`) |
+| **Syntax**       | Same syntax for both files | Same syntax as limits.conf                                   |
+
 # HP and THP
 
 > Huge Pages (HP) and Transparent Huge Pages (THP)
@@ -223,7 +231,7 @@ for performance-sensitive applications, THP can sometimes cause performance issu
   # Check THP Status
   cat /sys/kernel/mm/transparent_hugepage/enabled
   # Expected output:
-  always madvise [never]
+  [always] madvise never
   ```
 
 Summary: Should You Configure HP & THP Together?

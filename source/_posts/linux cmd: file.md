@@ -7,6 +7,14 @@ categories: linux
 
 # basic
 
+## copy
+
+```shell
+rsync -aP <sourceDir> <targetDir>
+
+cp -r <sourceDir> <targetDir>
+```
+
 ## du
 
 ```shell
@@ -291,6 +299,11 @@ find ./* -group 用户组
 
 - t — to list the contents of tar archive file
 
+```shell
+# extract files to a specific destination directory
+tar -xvf <archive.tar> -C <destination_directory>
+```
+
 ## wget
 
 - 下载指定目录
@@ -359,12 +372,20 @@ tr -- translate or delete characters
 ```shell
 # method 2
 fallocate -l 1G fileName
-
-# method 1
-dd if=/dev/zero of=fileName bs=1M count=1024
 ```
 
+### dd
 
+```shell
+dd if=/dev/zero of=/path/to/directory/filename bs=block_size count=number_of_blocks
+# Create a 100MB File in /tmp/
+dd if=/dev/zero of=/tmp/testfile.img bs=1M count=100
+```
+
+- **`if=/dev/zero`**: Input file (`/dev/zero` provides null bytes; use `/dev/urandom` for random data).
+- **`of=/path/to/directory/filename`**: Output file path and name.
+- **`bs`**: Block size (e.g., `1K`, `1M`, `1G`).
+- **`count`**: Number of blocks to write
 
 ## 文件分割
 

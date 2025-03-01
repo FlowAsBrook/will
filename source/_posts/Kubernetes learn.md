@@ -116,23 +116,6 @@ sudo ctr -n k8s.io images list | grep {image}
 sudo ctr -n k8s.io images rm {image}:{tag}
 ```
 
-
-
-# NODE
-
-```shell
-# show all labels
-kubectl get nodes --show-labels
-
-# add label on node
-kubectl label node <node-name> <label-key>=<label-value>
-
-# remove label from node
-kubectl label node <node-name> <label-key>-
-```
-
-
-
 # API object
 
 > Kubernetes API 对象，由元数据 metadata、规范 spec 和状态 status组成
@@ -412,9 +395,15 @@ Runs for the entire lifecycle of the pod
 
 - **PVs are global resources**: They can be used across namespaces.
 
+### provision
+
+- **static provisioning**, the relationship between a PersistentVolume (PV) and a PersistentVolumeClaim (PVC) is strictly **1:1** at any given time.
+
 ## RBAC
 
 > Role-Based Access Control
+>
+> reference [Kubernetes RBAC]()
 
 ## Operator
 
