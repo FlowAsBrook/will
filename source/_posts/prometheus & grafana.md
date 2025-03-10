@@ -105,7 +105,7 @@ categories: monitor
 docker volume create prometheus-data
 # Start Prometheus container
 docker run -d \
-    -p 9090:9090 \
+    -p 19090:19090 \
     -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml \
     -v prometheus-data:/prometheus \
     prom/prometheus

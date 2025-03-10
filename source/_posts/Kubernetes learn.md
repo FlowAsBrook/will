@@ -133,6 +133,19 @@ kind: CronJob
 ...
 ```
 
+## Deployment
+
+> 管理 长期伺服型（long-running）业务
+
+| Aspect              | Pod                                                          | Deployment                                                   |
+| ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Definition**      | The smallest deployable unit, containing one or more containers. | A higher-level abstraction to manage Pods and ReplicaSets.   |
+| **Purpose**         | Represents a single instance of a running application.       | Manages Pods by defining scaling, updates, and desired state. |
+| **Ephemerality**    | Ephemeral: Once a Pod dies, it is not automatically replaced. | Resilient: Automatically replaces Pods as needed.            |
+| **Scaling**         | Requires manual intervention to scale.                       | Can define a desired number of replicas for automatic scaling. |
+| **Rolling Updates** | No built-in support for rolling updates.                     | Supports rolling updates and rollbacks for live changes.     |
+| **Use Case**        | Suitable for testing or single-instance workloads.           | Suitable for production workloads requiring scalability and availability. |
+
 ## pod
 
 > Kubernetes 里“最小”的 API 对象是 Pod。Pod 可以等价为一个应用，所以，Pod 可以由多个紧密协作的容器组成
@@ -158,11 +171,7 @@ kind: CronJob
 - 每个 Pod 都会被分配一个唯一的 IP 地址。Pod 中的所有容器共享网络空间，包括 IP 地址和端口。Pod 内部的容器可以使用 `localhost` 互相通信。Pod 中的容器与外界通信时，必须分配共享网络资源（例如使用宿主机的端口映射）。
 - 可以为一个 Pod 指定多个共享的 Volume。Pod 中的所有容器都可以访问共享的 volume。Volume 也可以用来持久化 Pod 中的存储资源，以防容器重启后文件丢失。
 
-### Deployment
-
-> 管理 长期伺服型（long-running）业务
-
-### DaemonSet
+## DaemonSet
 
 > 管理 节点后台支撑型（node-daemon）业务
 
@@ -170,11 +179,11 @@ kind: CronJob
 2. 每个节点上只有一个这样的 Pod 实例；
 3. 当有新的节点加入 Kubernetes 集群后，该 Pod 会自动地在新节点上被创建出来；而当旧节点被删除后，它上面的 Pod 也相应地会被回收掉。
 
-### job
+## job
 
 > 管理 批处理型（batch）业务
 
-### StatefulSet
+## StatefulSet
 
 > 管理 有状态应用型（stateful application）业务
 >
@@ -403,7 +412,7 @@ Runs for the entire lifecycle of the pod
 
 > Role-Based Access Control
 >
-> reference [Kubernetes RBAC]()
+> reference [Kubernetes RBAC](https://www.willshirley.top/2025/03/01/kubernetes%20RBAC/)
 
 ## Operator
 

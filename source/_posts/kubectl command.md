@@ -41,6 +41,23 @@ kubectl delete all --all -n <namespace>
 
 # node
 
+## resource 
+
+```shell
+# method 1: Check Node Resource Availability
+kubectl describe node <node-name>  # check Capacity, Allocatable, Allocated resources
+	•	CPU available = Allocatable CPU - CPU Requests
+	•	Memory available = Allocatable Memory - Memory Requests
+
+# method 2: Get Detailed Resource Requests & Limits for All Pods
+kubectl get pods -A -o=custom-columns="NAMESPACE:.metadata.namespace,NAME:.metadata.name,CPU_REQUESTS:.spec.containers[*].resources.requests.cpu,MEM_REQUESTS:.spec.containers[*].resources.requests.memory,CPU_LIMITS:.spec.containers[*].resources.limits.cpu,MEM_LIMITS:.spec.containers[*].resources.limits.memory"
+
+# method 3:  Output for Advanced Parsing json
+kubectl get nodes -o json | jq '.items[] | {name: .metadata.name, allocatable: .status.allocatable}'
+```
+
+
+
 ## label
 
 ```shell
@@ -66,6 +83,9 @@ Taints: nodepool=fault:NoSchedule
 
 # normal node print
 Taints: <none>
+
+# tag taint
+kubectl taint nodes <node> nodepool=fault:NoSchedule
 ```
 
 # All
@@ -123,8 +143,12 @@ kubectl get pod <pod-name> -n <namespace> -o yaml > pod-config.yaml
 without kubeconfig
 
 ```shell
-# kubectl exec -it {pod_name} -- /bin/bash
+# enter pod on specify container
 kubectl exec -it {pod_id} -n {namespace} -c {container_id} -- sh
+
+# execute specify command on pod
+kubectl exec -it {pod_id} -n {namespace} -c {container_id} -- <shell>
+e.g. kubectl exec -it csi-node-1 -n dingofs -- cat /etc/resolv.conf
 ```
 
 ## copy
@@ -154,6 +178,13 @@ step2 : delete the finalizers array under metadata, save the file, and exit
 | **Use Case**    | Automation (e.g., CI/CD pipelines).  | Debugging or ad-hoc fixes.                |
 | **Safety**      | Risk of typos in JSON syntax.        | Risk of accidental edits to other fields. |
 
+# statefulset
+
+```shell
+# restart
+kubectl rollout restart StatefulSet/dingofs-csi-controller -n dingofs
+```
+
 # daemonsets
 
 ```shell
@@ -161,6 +192,12 @@ kubectl get daemonsets --all-namespaces
 
 # restart 
 kubectl rollout restart daemonset/dingofs-csi-node -n dingofs
+```
+
+# service
+
+```shell
+kubectl get svc -o wide -n <namespace>
 ```
 
 # storage
@@ -195,11 +232,15 @@ kubectl get pv
 # delete pv
 ## step1: change stragety
 kubectl patch pv PV_NAME -p '{"spec":{"persistentVolumeReclaimPolicy":"Delete"}}'
+
 ## step2: delete
 kubectl delete pv PV_NAME
 
 # delete multiply pv
 kubectl get pv --no-headers | grep <NAME> | awk '{print $1}' | xargs kubectl delete pv
+
+# delete released status pvc
+kubectl get pv -o json | jq -r '.items[] | select(.status.phase=="Released") | .metadata.name' | xargs kubectl delete pv
 ```
 
 # RBAC

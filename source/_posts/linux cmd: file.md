@@ -501,3 +501,5 @@ zip -re filename.zip filename
 pandoc -o output.docx -f markdown -t docx filename.md
 ```
 
+## 清理指定日期之前的文件
+

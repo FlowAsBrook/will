@@ -94,8 +94,11 @@ pyenv global 3.6.5 2.7.14
 
    在项目目录中，运行以下命令创建一个名为 `myenv` 的虚拟环境：
 
-   ```
-   python3 -m venv myenv
+   ```shell
+   python3 -m venv <envName>  # default always use venv as env name 
+   
+   # Use the desired Python version:
+   python3.9 -m venv myenv
    ```
 
    这将在当前目录创建一个名为 `myenv` 的虚拟环境文件夹。

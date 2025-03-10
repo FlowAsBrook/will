@@ -13,10 +13,6 @@ categories: network
 
 **Transport Layer Security (TLS)**
 
-
-
-
-
 # A VS B
 
 ## SSL VS TLS

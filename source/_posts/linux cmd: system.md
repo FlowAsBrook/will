@@ -101,6 +101,8 @@ sudo su -
 
 # add user
 sudo useradd -m -s /bin/bash <username>
+
+dingofs ALL=(ALL) NOPASSWD:ALL
 #	-m: Creates a home directory for the user.
 #	-s /bin/bash: Sets the default shell to /bin/bash.
 
@@ -117,6 +119,19 @@ visudo
 
 # delete user
 userdel <username>
+```
+
+### ssh
+
+```shell
+# step1: generate ssh-key in all nodes
+ssh-keygen -t rsa
+# step2: in first node
+cat id_rsa.pub >> authorized_keys
+# step3: in other node
+ssh-copy-id -i id_rsa.pub 用户@<first_node>
+# step4: in first node
+scp authorized_keys 用户@<other_node>:~/.ssh/
 ```
 
 ### 卸载安装的软件
@@ -401,12 +416,27 @@ sync; echo 1 > /proc/sys/vm/drop_caches
 
 # troubleshooting
 
-- 鼠标按键会在终端输入乱码
+## 鼠标按键会在终端输入乱码
 
-  ```shell
-  # the `reset` command helps restore the terminal to a known good state, which can be helpful in troubleshooting issues or clearing screen clutter.
-  reset
-  ```
+```shell
+# the `reset` command helps restore the terminal to a known good state, which can be helpful in troubleshooting issues or clearing screen clutter.
+reset
+```
 
-  
+## received disconnect from 10.220.32.16 port 22:2: Too many authentication failures
+
+```shell
+# Remove all keys from the agent
+ssh-add -D
+```
+
+## /etc/hosts 文件无法编辑
+
+```shell
+# the file may have the immutable attribute set. Check with:
+lsattr /etc/hosts
+
+#  remove i flag
+sudo chattr -i /etc/hosts
+```
 
