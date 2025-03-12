@@ -148,6 +148,9 @@ git log --oneline
   # e.g.
   git config  user.email "jackblack369@163.com"
   git config  user.name "Wei Dong"
+  
+  # Git automatically converts CRLF to LF when committing and back to CRLF when checking out.
+  git config --global core.autocrlf
   ```
 
 - commit info

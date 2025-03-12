@@ -39,14 +39,14 @@ echo "bonding" | sudo tee /etc/modules-load.d/bonding.conf
 Since the bond interface will carry the IP, you must remove the IP from ib7s400p0 first:
 
 ```shell
-sudo ip addr del 172.30.12.46/24 dev ib7s400p0
+sudo ip addr del 172.30.12.61/24 dev ib7s400p0
 ```
 
 **Step 2: Create the Bond Interface (bond1)**
 
 Create the bond interface:
 
-```
+```shell
 sudo ip link add bond1 type bond
 ```
 
@@ -77,10 +77,12 @@ sudo ip addr flush dev ib7s400p0
 2. Add ib7s400p0 to bond1:
 
 ```shell
-# sudo ip link set ib7s400p0 down
+sudo ip link set ib7s400p0 down
 sudo ip link set ib7s400p0 master bond1
 sudo ip link set ib7s400p0 up
 ```
+
+> check: ethtool ib7s400p0
 
 3. Bring bond1 up:
 
@@ -88,12 +90,14 @@ sudo ip link set ib7s400p0 up
 sudo ip link set bond1 up
 ```
 
+> check: cat /proc/net/bonding/bond1
+
 **Step 5: Assign an IP Address**
 
 If using a **static IP**:
 
 ```shell
-sudo ip addr add 172.30.12.46/24 dev bond1
+sudo ip addr add 172.30.12.61/24 dev bond1
 ```
 
 Or if using **DHCP**:

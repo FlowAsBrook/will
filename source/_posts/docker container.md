@@ -63,6 +63,10 @@ docker inspect {container_id} --format='{{json .Mounts}}' | jq
 
 # 删除
 docker rm -f 容器id
+# 批量删除已停止的容器
+docker rm $(docker ps -a -q -f "status=exited")
+
+
 # 导出
 docker export 容器id > xxx.tar
 # 导入
@@ -76,6 +80,13 @@ docker logs $container_id
 docker cp /host/path/ <container_id>:/path/to/file
 or
 docker cp <container_id>:/path/to/file /host/path/
+
+
+# Monitor Real-Time
+docker stats <containerId>
+
+# Check specify container's PID
+docker inspect --format '{{.State.Pid}}' <containerId>
 ```
 
 ## volume
@@ -129,7 +140,7 @@ docker cp <container_id>:/path/to/file /host/path/
   docker inspect 容器名/容器ID | grep -i “network” # 其中grep的“-i”表示不区分大小写。
   ```
 
-#### Exit Codes
+## Exit Codes
 
 Common exit codes associated with docker containers are:
 
@@ -146,6 +157,8 @@ Common exit codes associated with docker containers are:
 - **Exit Code 126**: Permission problem or command is not executable
 
 - **Exit Code 127**: Possible typos in shell script with unrecognizable characters
+
+## third container 
 
 ### mysql
 
@@ -290,6 +303,8 @@ version: "3.7"                                                                  
 ```
 
 > 使用 docker-compose --verbose up redis启动，可查看启动详情
+
+## solution
 
 ### 修改已有容器的端口映射
 

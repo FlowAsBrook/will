@@ -5,7 +5,7 @@ tags: vim
 categories: linux
 ---
 
-**config**
+# config
 
 `~/.vimrc`
 
@@ -104,4 +104,14 @@ set noswapfile       " Don't use swap files
 
   
 
-  
+
+# command
+
+## type `^M`
+
+> equal `\r`
+
+```shell
+/Ctrl-V Ctrl-M
+```
+

@@ -27,15 +27,11 @@ categories: python
   conda create --name xxx python=3.10
   ```
 
-  
-
 - 激活环境
 
   ```
   conda activate xxx
   ```
-
-  
 
 - 删除环境
 

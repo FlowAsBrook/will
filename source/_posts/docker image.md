@@ -45,6 +45,10 @@ OPTIONS说明：
 –format :指定返回值的模板文件；
 –no-trunc :显示完整的镜像信息；
 -q :只显示镜像ID。
+
+
+# remove all dangling images:
+docker image prune -f
 ```
 
 - 导出镜像
@@ -108,7 +112,8 @@ OPTIONS说明：
   docker run -d $REPOSITORY:$TAG sleep infinity
   ```
 
-  
+
+
 
 ### jar -> image
 

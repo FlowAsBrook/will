@@ -145,6 +145,9 @@ mc admin logs myminio
 mc alias set myminio {endpoint_address} {ak} {sk} 
 # e.g. mc alias set myminio http://minio1.dev.net:19000 1111111 22222222
 
+# alias-tls
+看下面的 mc alias 内容
+
 # ls alias
 mc alias list
 
@@ -155,6 +158,7 @@ mc admin info myminio
 mc admin config get myminio
 ```
 - bucket
+
 ```shell
 # create bucket
 mc mb <ALIAS>/<BUCKET>
@@ -326,3 +330,40 @@ done
 browser check
 
 <img src="/images/minio/cert.jpg" style="zoom: 60%">
+
+## mc alias
+
+- step1: fetch the MinIO server’s certificate
+
+  ```shell
+  echo -n | openssl s_client -connect 172.30.14.127:19000 -showcerts | openssl x509
+  ```
+
+- step2: Move the Certificate to the Trusted Store
+
+  - ubuntu
+
+    ```shell
+    sudo mkdir -p /usr/local/share/ca-certificates/  
+    # copy the entire certificate from step1 (including -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----).
+    sudo vim /usr/local/share/ca-certificates/minio.crt
+    sudo update-ca-certificates
+    ```
+
+  - rocky
+
+    ```shell
+    sudo mkdir -p /etc/pki/ca-trust/source/anchors/
+    # copy the entire certificate from step1 (including -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----).
+    sudo vim /etc/pki/ca-trust/source/anchors/minio.crt
+    sudo update-ca-trust extract
+    export SSL_CERT_FILE=/etc/pki/ca-trust/source/anchors/minio.crt
+    ```
+
+- step3: add alias
+
+  ```shell
+  mc alias set minio127 https://172.30.14.127:19000 <ak> <sk>
+  ```
+
+  

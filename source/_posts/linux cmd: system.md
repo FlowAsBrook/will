@@ -92,6 +92,15 @@ categories: linux
 
 # operate
 
+### hostname
+
+```shell
+sudo hostnamectl set-hostname <new-hostname>
+sudo hostnamectl status
+```
+
+
+
 ### user
 
 ```shell
@@ -132,6 +141,16 @@ cat id_rsa.pub >> authorized_keys
 ssh-copy-id -i id_rsa.pub 用户@<first_node>
 # step4: in first node
 scp authorized_keys 用户@<other_node>:~/.ssh/
+```
+
+### process
+
+```shell
+# check specify process limit info
+cat /proc/<pid>/limits
+
+# Check total-vm / anon-rss
+cat /proc/<pid>/status
 ```
 
 ### 卸载安装的软件
