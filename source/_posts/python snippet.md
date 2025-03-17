@@ -29,15 +29,11 @@ categories: python
   pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
   ```
 
-  
-
 - 安装子模块
 
   ```shell
   pip install 'fastapi_amis_admin[cli]'  # 注意引号
   ```
-
-  
 
 - 查看指定依赖版本
 

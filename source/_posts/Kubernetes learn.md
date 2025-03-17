@@ -245,8 +245,6 @@ containers:
       exec /bin/mount.juicefs ...
 ```
 
-
-
 ## Secret
 
 - create
@@ -261,7 +259,6 @@ containers:
   kubectl get secrets
   ```
 
-  
 
 ## ConfigMap
 
@@ -283,12 +280,6 @@ containers:
   kubectl get configmaps ui-config -o yaml
   ```
 
-
-
-## ControllerRevision
-
-
-
 ## CronJob
 
 ## infra container (pause container)
@@ -309,14 +300,6 @@ Uses minimal resources
 Not visible in pod specifications
 Runs for the entire lifecycle of the pod
 ```
-
-
-
-## config
-
-- Metadata
-- Spec
-- 
 
 ## stragety
 
@@ -346,15 +329,12 @@ Runs for the entire lifecycle of the pod
   PodPreset 里定义的内容，只会在 Pod API 对象被创建之前追加在这个对象本身上，而不会影响任何 Pod 的控制器的定义
   ```
 
-  
-
 - **Status**
 
   ```
   pending running succeeded failed upknown
   ```
 
-  
 
 ## Volume
 
@@ -431,6 +411,24 @@ Runs for the entire lifecycle of the pod
 ### state
 
 > *The state just holds the information of what the desired state of the resource is and the resource is the thing that you are managing.*
+
+### Operator vs Deployment
+
+| **Feature**               | **Operator**                                                 | **Deployment**                                               |
+| ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Definition**            | A Kubernetes **Operator** automates the lifecycle of an application, handling deployment, upgrades, scaling, and failure recovery. | A **Deployment** is a Kubernetes object that manages a set of **pods** with defined scaling and update strategies. |
+| **Automation Level**      | **High**: Operators provide full lifecycle automation.       | **Basic**: Deployments only handle pod management and scaling. |
+| **Custom Resource (CRD)** | Uses **Custom Resource Definitions (CRDs)** to extend Kubernetes functionality. | Uses **built-in resources** like Deployment, Service, ReplicaSet. |
+| **Scaling**               | Can provide **intelligent auto-scaling** based on workload behavior. | Relies on **Horizontal Pod Autoscaler (HPA)** or manual scaling. |
+| **Upgrade Handling**      | Handles **zero-downtime upgrades** with rollback capabilities. | Uses RollingUpdate or Recreate strategies.                   |
+| **Failure Recovery**      | Can detect failures and take automated corrective actions.   | Relies on Kubernetes itself to restart pods.                 |
+| **Complexity**            | More complex, requires coding and maintaining an Operator.   | Simpler, uses YAML definitions.                              |
+
+- **Operators use Deployments internally** to manage application workloads.
+
+- A **Deployment only manages pods**, but an **Operator enhances this by managing the entire application lifecycle**.
+
+- Operators **create, update, and delete Deployments** dynamically based on defined logic.
 
 ## CNI
 
@@ -560,8 +558,6 @@ kubectl -n <namespace> patch <RessourceObject> <Object-name> -p '{"metadata":{"f
 ```shell
 kubectl delete pod <pod-name> --grace-period=0 --force --namespace <namespace>
 ```
-
-
 
 ## flannel  with kubeadm init
 

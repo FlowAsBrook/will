@@ -7,6 +7,40 @@ categories: docker
 
 # best practices
 
+## install
+
+### dnf
+
+- repo
+
+  ```shell
+  sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  ```
+
+- install
+
+  ```shell
+  sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+  ```
+
+- start
+
+  ```shell
+  sudo systemctl --now enable docker
+  ```
+
+- (optional) allow a non-root user to manage docker
+
+  ```shell
+  # Add the current user
+  sudo usermod -aG docker $USER
+  
+  # Add a specific user
+  sudo usermod -a -G docker custom-user
+  
+  # logout and login new session 
+  ```
+
 ## config default data directory
 
 - default data directory `/var/lib/docker`

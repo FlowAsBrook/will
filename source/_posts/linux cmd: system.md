@@ -332,11 +332,15 @@ sudo systemctl restart kdump
 ## core dumps
 
 ```shell
-# 设置 core 文件的存放路径
+# 方式一：设置 core 文件的存放路径
 echo "/core/core.%e.%p" > /proc/sys/kernel/core_pattern
 
 #	%e is replaced by the executable name.
 #	%p is replaced by the process ID.
+
+# 方式二：
+sudo vim /etc/sysctl.conf
+kernel.core_pattern=/core/core-%e-%p-%t
 
 # Apply the changes
 sudo sysctl -p
