@@ -71,6 +71,9 @@ categories: git
 
   ```shell
   git restore <file>
+  
+  #  reset all tracked files
+  git restore .
   ```
 
 - 删除未被追踪的文件或目录
@@ -284,7 +287,7 @@ git branch bk-dev HEAD
   git branch new_branch
   
   # To create *and check out* a new branch from the branch you DO have checked out:
-  git checkout -b new_branch`
+  git checkout -b new_branch
   
   # To create *and check out* a new branch from a branch you do NOT have checked out:
   git checkout -b new_branch from_branch

@@ -329,6 +329,20 @@ Sat Mar 15 20:33:04 2025
   INFO 03-15 20:36:48 executor_base.py:116] Maximum concurrency for 128000 tokens per request: 2.30x
   ```
 
+- chat
+
+  ```shell
+  curl http://localhost:8000/v1/chat/completions \
+      -H "Content-Type: application/json" \
+      -d '{
+          "model": "deepseek-r1",
+          "messages": [
+              {"role": "system", "content": "You are a helpful assistant."},
+              {"role": "user", "content": "introduce yourself"}
+          ]
+      }'
+  ```
+
 # sglang
 
 ## install offline
@@ -355,6 +369,20 @@ pip install --no-index --find-links=. "sglang[all]>=0.4.4.post1"
 ```shell
 python3 -m sglang.launch_server --model /mnt/3fs/DeepSeek-R1 --tp 8 --trust-remote-code --port 30000
 ```
+
+- chat
+
+  ```shell
+  curl http://localhost:30000/v1/chat/completions \
+      -H "Content-Type: application/json" \
+      -d '{
+          "model": "deepseek-r1",
+          "messages": [
+              {"role": "system", "content": "You are a helpful assistant."},
+              {"role": "user", "content": "introduce yourself"}
+          ]
+      }'
+  ```
 
 # torch
 

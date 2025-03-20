@@ -83,6 +83,12 @@ KVM 的全称是：Kernel-based Virtual Machine，简单一句话概括，就是
 
 - authorized_keys 的权限是600，即读和写（如果默认不是的话，需要修改）
 
+## debug
+
+```shell
+sh -x <shellName>
+```
+
 # troubleshoot
 
 ## vmware centos ip config

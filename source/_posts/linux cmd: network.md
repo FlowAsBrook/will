@@ -152,3 +152,52 @@ sudo ip route del 172.21.0.0/16
 sudo ip link delete br-900457b8a29e
 ```
 
+# DNS
+
+## add new dns
+
+- method 1:
+
+  ```yaml
+  # step1: vim /etc/systemd/resolved.conf
+  [Resolve]
+  DNS=10.201.44.51 223.5.5.5  # new DNS
+  FallbackDNS=127.0.0.53
+  
+  # step2: restart service
+  sudo systemctl restart systemd-resolved
+  ```
+
+​	
+
+- method2: (有时候不起效)
+
+  ```yaml
+  vim /etc/resolv.conf
+  # 注意：添加的dns解析地址，需要放在前面，会有顺序影响
+  
+  nameserver 10.201.44.51  # new DNS
+  nameserver 223.5.5.5	# new DNS
+  nameserver 127.0.0.53
+  ```
+
+# network
+
+## create new network
+
+step1: vim `/etc/netplan/ib.yaml`
+
+```shell
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ibp27s0:
+      dhcp4: no
+      addresses:
+        - 192.168.2.52/21
+```
+
+step2: `netplan apply`
+
+# 

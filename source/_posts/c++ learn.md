@@ -368,9 +368,15 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 {
     statements;
 }
+
+[捕获列表](参数列表) mutable(可选) 异常属性 -> 返回类型 {
+// 函数体
+}
 ```
 
 In actuality, lambdas aren’t functions (which is part of how they avoid the limitation of C++ not supporting nested functions). They’re a special kind of object called a functor. Functors are objects that contain an overloaded `operator()` that make them callable like a function.
+
+> 所谓捕获列表，其实可以理解为参数的一种类型，Lambda 表达式内部函数体在默认情况下是不能够使用函数体外部的变量的， 这时候捕获列表可以起到传递外部数据的作用
 
 # memory
 

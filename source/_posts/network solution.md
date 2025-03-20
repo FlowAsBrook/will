@@ -5,6 +5,23 @@ tags: solution
 categories: network
 ---
 
+# config ib network 
+
+1. vim `/etc/netplan/ib.yaml`
+
+```shell
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ibp27s0:
+      dhcp4: no
+      addresses:
+        - 192.168.2.52/21
+```
+
+2.  execute `netplan apply`
+
 # make bond
 
 Bonding Mode

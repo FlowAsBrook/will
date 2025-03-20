@@ -451,7 +451,6 @@ TBD
   kubectl delete pod <pod-name>
   ```
 
-  
 
 # FAQ
 
