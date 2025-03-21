@@ -49,14 +49,22 @@ categories: docker
 
   ```shell
   # step1
+  systemctl stop docker
+  systemctl stop docker.socket
+  
+  # step2
   vim /etc/docker/daemon.json
   
   {
     "data-root": "/path/to/directory"
   }
   
+  # step3 (optional)
+  sudo mv /var/lib/docker /path/to/directory
+  
   # step2
-  systemctl restart docker 
+  systemctl start docker.socket
+  systemctl start docker 
   
   # check modify available
   docker info | grep "Docker Root Dir"

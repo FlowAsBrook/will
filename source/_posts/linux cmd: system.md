@@ -128,6 +128,10 @@ visudo
 
 # delete user
 userdel <username>
+
+
+# set uid:65535 to nobody base on gid: nobody 65534 
+sudo useradd -u 65535 -g 65534 -d /nonexistent -s /usr/sbin/nologin nobody65535
 ```
 
 ### ssh

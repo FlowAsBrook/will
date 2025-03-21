@@ -503,3 +503,28 @@ pandoc -o output.docx -f markdown -t docx filename.md
 
 ## 清理指定日期之前的文件
 
+
+
+# troubleshooting 
+
+## 磁盘展示空间和实际空间不符
+
+```shell
+# check deleted process
+sudo lsof | grep deleted
+
+# Analyzing the Output
+wsssr_def 1368270 1368507 wsssr_def            root    7w      REG              259,3         0    1180232 /usr/local/wsssr_defence_agent/agent_init (deleted)
+
+Breaking it down:
+Command: wsssr_def (shortened process name, likely wsssr_defence_agent or similar).
+PID: 1368270 (process ID).
+PPID: 1368507 (parent process ID).
+User: root (running as root).
+FD: 7w (file descriptor 7, open for writing).
+Type: REG (regular file).
+Device: 259,3 (device number, matching /dev/nvme0n1p2—your root partition).
+Size: 0 (reported size is 0 bytes—see below for why this is misleading).
+Node: 1180232 (inode number).
+File: /usr/local/wsssr_defence_agent/agent_init (deleted) (the deleted file).
+```

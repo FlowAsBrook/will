@@ -87,7 +87,8 @@ Taints: <none>
 # tag taint
 kubectl taint nodes <node> nodepool=fault:NoSchedule
 
-# fetch taint
+# remove taint
+kubectl taint nodes <node-name> <key>:<value>-
 ```
 
 # All

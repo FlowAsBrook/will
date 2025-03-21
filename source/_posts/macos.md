@@ -325,6 +325,18 @@ Appearance & Behavior -> System Settings -> Language and Region -> Region
 激活脚本依然使用原来的 script/install.sh
 ```
 
+### PlantUML
+
+```shell
+brew install plantuml
+```
+
+### mermaid
+
+```shell
+npm install -g @mermaid-js/mermaid-cli
+```
+
 # gpu
 
 ```shell
