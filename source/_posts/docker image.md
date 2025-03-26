@@ -22,6 +22,9 @@ docker build --no-cache -t your-image-name .
 # 查找
 docker search xxx
 
+# Check Image Architecture
+docker image inspect <imageId>  | jq '.[].Architecture'
+
 # 拉取
 docker pull xxx (--platform=amd64)
 

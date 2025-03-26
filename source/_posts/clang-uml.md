@@ -12,12 +12,15 @@ categories: clang-uml
 ```shell
 # init .clang-uml file
 clang-uml --init
+
+# use specify config file
+clang-uml -c /path/to/configFile
 ```
 
 ## generate PlantUML
 
 ```shell
-# generate xxx.puml 
+# generate xxx.puml base on default config
 clang-uml # --progress
 
 # draw svg picture base on above puml file
@@ -40,5 +43,12 @@ vim config.json
 }
 
 mmdc -i diagram.mmd -c config.json
+```
+
+## other
+
+```shell
+# To find the exact function signature
+ clang-uml --print-from -n client_class_diagram -c .clang-uml-sequence | grep main
 ```
 

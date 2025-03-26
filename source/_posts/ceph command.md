@@ -27,13 +27,31 @@ ceph orch ls
 ceph orch ps
 ```
 
-## health
+# cluster
+
+```shell
+# method 1
+ceph fsid
+
+# method 2
+cat /etc/ceph/ceph.conf | grep fsid
+```
+
+# User
+
+- check userId
+
+  ```shell
+  ceph auth list
+  ```
+
+# health
 
 ```shell
 ceph df
 ```
 
-## host
+# host
 
 ```shell
 # list host
@@ -52,7 +70,7 @@ ceph orch host rm <host> # remove the host from the cluster after all daemons ha
 # add storage
 ceph orch apply osd --all-available-devices
 ```
-## osd
+# osd
 
 ```shell
 # list
@@ -67,7 +85,7 @@ ceph orch daemon add osd host1:/dev/sdb
 ceph orch daemon add osd host1:data_devices=/dev/sda,/dev/sdb,db_devices=/dev/sdc,osds_per_device=2
 ```
 
-## RGW
+# RGW
 
 > radosgw
 
@@ -84,6 +102,13 @@ ceph orch host label add gwhost2 rgw
 
 # apply
 ceph orch apply rgw foo '--placement=label:rgw count-per-host:2' --port=8000
+```
+
+# monitor
+
+```shell
+ceph mon dump
+# <mon-ip>:6789
 ```
 
 # Ceph Object Gateway

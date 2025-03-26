@@ -134,3 +134,17 @@ Hard blocked: no
 
 
 
+## 机器掉线
+
+### 网卡掉线
+
+```shell
+# check
+ip a
+cat /etc/netplan/xxx.yaml
+
+# resolve
+vim /etc/netplan/xxx.yaml
+netplan --debug apply
+```
+

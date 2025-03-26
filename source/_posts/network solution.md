@@ -133,7 +133,7 @@ sudo ip route del 172.30.12.0/24 dev ib7s400p0
 
 To ensure the bond configuration persists after reboot:
 
-1. Create /etc/sysconfig/network-scripts/ifcfg-bond1
+1. Create `/etc/sysconfig/network-scripts/ifcfg-bond1`
 
 ```
 DEVICE=bond1
@@ -144,7 +144,7 @@ ONBOOT=yes
 BONDING_OPTS="mode=active-backup miimon=100"
 ```
 
-2. Create /etc/sysconfig/network-scripts/ifcfg-ib7s400p0
+2. Create `/etc/sysconfig/network-scripts/ifcfg-ib7s400p0`
 
 ```
 DEVICE=ib7s400p0
@@ -156,7 +156,7 @@ ONBOOT=yes
 
 3. Restart NetworkManager to apply changes:
 
-```
+```shell
 sudo systemctl restart NetworkManager
 ```
 
@@ -164,7 +164,7 @@ sudo systemctl restart NetworkManager
 
 1. Check bond details:
 
-```
+```shell
 cat /proc/net/bonding/bond1
 ```
 
@@ -172,14 +172,14 @@ ib7s400p0 should now appear as a **Slave Interface**.
 
 2. Confirm IP address and route:
 
-```
+```shell
 ip a
 ip route
 ```
 
 3. Test connectivity:
 
-```
+```shell
 ping 172.30.12.47 # other same bond addr
 ```
 
@@ -187,13 +187,13 @@ ping 172.30.12.47 # other same bond addr
 
 ​	1.	Temporarily bring down ib7s400p0:
 
-```
+```shell
 sudo ip link set ib7s400p0 down
 ```
 
 ​	2.	Check bond1 status:
 
-```
+```shell
 cat /proc/net/bonding/bond1
 ```
 
@@ -207,4 +207,4 @@ Use **active-backup** mode if ib7s400p0 is the only slave (recommended now).
 
 Use **802.3ad** if planning to add more NICs for higher throughput in the future.
 
-Ensure /etc/sysconfig/network-scripts/ configs are properly set for persistence.
+Ensure `/etc/sysconfig/network-scripts/` configs are properly set for persistence.

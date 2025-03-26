@@ -199,5 +199,3 @@ network:
 ```
 
 step2: `netplan apply`
-
-# 

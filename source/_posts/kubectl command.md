@@ -89,6 +89,7 @@ kubectl taint nodes <node> nodepool=fault:NoSchedule
 
 # remove taint
 kubectl taint nodes <node-name> <key>:<value>-
+# e.g. kubectl taint node node1 nodepool=fault:NoSchedule-
 ```
 
 # All
@@ -130,6 +131,9 @@ kubectl logs -f {podId} -n {namespace}
 
 # pod's container
 kubectl logs <pod-name> -c <container-name> -n <namespace>
+
+# check the logs from previous crash container
+kubectl logs <pod-name> --previous -n <namespace>
 ```
 
 ## config

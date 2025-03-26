@@ -90,6 +90,52 @@ categories: linux
 
 查看历史命令，支持 grep过滤操作
 
+### swap
+
+```shell
+# temp
+sudo swapoff -a
+# persistent
+sudo sed -i '/[[:space:]]swap[[:space:]]/s/^/#/' /etc/fstab
+```
+
+# Memory
+
+## OOM
+
+### 积分机制
+
+> OOM（Out-Of-Memory）积分机制是 Linux 内核在系统内存耗尽时，通过评估进程的优先级和内存使用情况，选择一个或多个进程终止以释放内存的一种机制。其核心目标是在内存不足时，最小化系统崩溃风险并优先保留关键进程。
+
+**OOM 积分机制的工作原理**
+
+1. **`oom_score` 计算**
+   每个进程的 `oom_score`（位于 `/proc/<pid>/oom_score`）决定了它被 OOM Killer 选中的概率。分数越高，进程越可能被终止。计算依据包括：
+   - **内存使用量**：进程占用的物理内存和交换分区（Swap）的总和。
+   - **运行时间**：长时间运行的进程可能被适当保护（通过 `oom_score_adj` 调整）。
+   - **进程优先级**：低优先级（高 `nice` 值）的进程更易被终止。
+   - **子进程内存**：父进程的子进程内存可能计入父进程的评分。
+   - **用户权限**：特权进程（如 root 用户进程）可能被保护。
+2. **`oom_score_adj` 调整因子**
+   用户可通过 `/proc/<pid>/oom_score_adj` 文件（范围：`-1000` 到 `1000`）手动干预评分：
+   - **负值**：降低被终止概率（如 `-1000` 表示免疫 OOM Killer）。
+   - **正值**：增加被终止概率。
+
+**调整 OOM 参数的常见方法**
+
+- **保护关键进程**：
+  通过修改 `oom_score_adj` 降低其被终止的概率：
+
+  ```shell
+  echo -1000 > /proc/<pid>/oom_score_adj  # 使进程免疫 OOM Killer
+  ```
+
+- **标记进程为高优先级目标**：
+
+  ```shell
+  echo 500 > /proc/<pid>/oom_score_adj     # 增大终止概率
+  ```
+
 # operate
 
 ### hostname
@@ -98,8 +144,6 @@ categories: linux
 sudo hostnamectl set-hostname <new-hostname>
 sudo hostnamectl status
 ```
-
-
 
 ### user
 

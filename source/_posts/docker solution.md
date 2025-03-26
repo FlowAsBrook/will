@@ -222,6 +222,8 @@ docker system df
 
 ```shell
 docker system prune -a
+or 
+docker system prune
 ```
 
 # troubleshoot

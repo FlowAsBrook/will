@@ -19,6 +19,9 @@ cp -r <sourceDir> <targetDir>
 
 ```shell
 du -h --max-depth=1 --exclude='proc' --exclude='home' --exclude='mnt'
+
+# Check actual disk usage
+du -sh /path/to/mountpoint
 ```
 
 ## dd
@@ -366,6 +369,15 @@ tr -- translate or delete characters
   ```
 
 # senario
+
+## 文件系统
+
+```shell
+# Check filesystem type
+df -T /path/to/mountpoint
+```
+
+
 
 ## 创建文件
 

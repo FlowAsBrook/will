@@ -68,6 +68,25 @@ Typically, good solutions have the following characteristics:
 
 ## Basics
 
+### preprocessor macros
+
+- Use `#define` macros for
+
+  ```shell
+  Header guards (#ifndef MY_HEADER_H)
+  Platform-specific code (#ifdef _WIN32)
+  Code that must be substituted inline for performance (#define SQUARE(x))
+  Simple constants that don’t need a type (#define MAX_SIZE 1024
+  ```
+
+- Avoid `#define` for:
+
+  ```shell
+  Complex expressions (use constexpr instead)
+  Type-sensitive operations (use inline functions)
+  Global constants (use const or constexpr)
+  ```
+
 ### operator
 
 - The `:: `symbol is an operator called the **scope resolution operator**.
@@ -270,6 +289,8 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 
 **Lvalue**
 
+> **左值** (lvalue, left value)，顾名思义就是赋值符号左边的值。准确来说， 左值是表达式（不一定是赋值表达式）后依然存在的持久对象。
+
 - Lvalue expressions evaluate to an identifiable object.
   - An lvalue reference  acts as an alias for an existing lvalue (such as a variable).
   - Lvalue references can only bind to modifiable lvalues.
@@ -277,9 +298,10 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 
 **Rvalue**
 
+> **右值** (rvalue, right value)，右边的值，是指表达式结束后就不再存在的临时对象。
+
 - Rvalue expressions evaluate to a value.
 
-  
 
 **Reference**
 
@@ -287,6 +309,10 @@ addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`).  assign
 - Pass by reference can only accept modifiable lvalue arguments
 - Class types can be expensive to copy (sometimes significantly so), so they are typically passed by const reference. Fundamental types and enumerated types are cheap to copy, so they are typically passed by value.
 - When an object being referenced is destroyed before a reference to it, the reference is left referencing an object that no longer exists. Such a reference is called a *dangling reference*
+
+**纯右值** (prvalue, pure rvalue)，纯粹的右值，要么是纯粹的字面量，例如 `10`, `true`； 要么是求值结果相当于字面量或匿名临时对象，例如 `1+2`。非引用返回的临时变量、运算表达式产生的临时变量、 原始字面量、Lambda 表达式都属于纯右值。
+
+**将亡值** (xvalue, expiring value)，是 C++11 为了引入右值引用而提出的概念（因此在传统 C++ 中， 纯右值和右值是同一个概念），也就是即将被销毁、却能够被移动的值。
 
 **Pointer**
 
